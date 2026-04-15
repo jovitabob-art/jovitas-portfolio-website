@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jovita Philix | Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1410;
+    --gold: #c9a84c;
+    --muted: #7a6f62;
+    --soft: #e8e0d0;
+    --accent: #8b5e3c;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: var(--cream); color: var(--ink); overflow-x: hidden; line-height: 1.6; }
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(245,240,232,0.97); border-bottom: 1px solid rgba(201,168,76,0.25); }
+  .nav-brand { font-size: 1.4rem; font-weight: bold; letter-spacing: 0.05em; }
+  .nav-brand span { color: var(--gold); }
+  .nav-links { display: flex; list-style: none; gap: 2rem; }
+  .nav-links a { font-family: Arial, sans-serif; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 5rem; background: var(--cream); position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 18vw; font-weight: bold; color: rgba(201,168,76,0.06); pointer-events: none; white-space: nowrap; user-select: none; }
+  .hero-inner { position: relative; z-index: 2; max-width: 700px; }
+  .hero-name { font-size: clamp(3.5rem, 8vw, 7rem); font-weight: normal; line-height: 1; letter-spacing: -0.02em; margin-bottom: 1rem; }
+  .hero-name em { font-style: italic; color: var(--gold); }
+  .hero-sub { font-family: Arial, sans-serif; font-size: 1rem; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+  .hero-desc { font-family: Arial, sans-serif; font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 480px; margin-bottom: 2rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .btn-d { display: inline-block; background: var(--ink); color: var(--cream); padding: 0.85rem 2rem; font-family: Arial, sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; border: 2px solid var(--ink); transition: all 0.25s; }
+  .btn-d:hover { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+  .btn-o { display: inline-block; background: transparent; color: var(--ink); padding: 0.85rem 2rem; font-family: Arial, sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; border: 2px solid var(--ink); transition: all 0.25s; }
+  .btn-o:hover { background: var(--ink); color: var(--cream); }
+  .stats { display: flex; gap: 3rem; flex-wrap: wrap; }
+  .stat { border-left: 2px solid var(--gold); padding-left: 1rem; }
+  .stat-n { font-size: 2rem; font-weight: bold; line-height: 1; }
+  .stat-l { font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* SECTIONS */
+  section { padding: 5rem 3rem; }
+  .slabel { font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+  .slabel::before { content: ''; width: 2rem; height: 1px; background: var(--gold); display: inline-block; }
+  .stitle { font-size: clamp(2rem, 4vw, 3rem); font-weight: normal; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 2.5rem; }
+
+  /* ABOUT */
+  #about { background: var(--ink); color: var(--cream); }
+  #about .slabel { color: var(--gold); }
+  #about .stitle { color: var(--cream); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+  .about-quote { font-style: italic; font-size: 1.3rem; color: var(--gold); line-height: 1.5; margin-bottom: 1.5rem; }
+  .about-text { font-family: Arial, sans-serif; font-size: 0.9rem; color: rgba(245,240,232,0.65); line-height: 1.9; margin-bottom: 1.2rem; }
+  .cpills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .cpill { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(255,255,255,0.15); padding: 0.45rem 1rem; font-family: Arial, sans-serif; font-size: 0.8rem; color: rgba(245,240,232,0.7); border-radius: 2px; transition: all 0.25s; }
+  .cpill:hover { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+  /* SKILLS */
+  #skills { background: var(--cream); }
+  .skills-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  .skills-intro { font-family: Arial, sans-serif; font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-top: 1rem; }
+  .sk-row { display: flex; justify-content: space-between; font-family: Arial, sans-serif; font-size: 0.82rem; margin-bottom: 0.3rem; }
+  .sk-row span:last-child { color: var(--muted); }
+  .sk-track { height: 3px; background: var(--soft); margin-bottom: 1.2rem; }
+  .sk-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--accent)); width: 0; transition: width 1.2s ease; }
+  .glabel { font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; margin-top: 1.5rem; }
+  .spills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .spill { display: inline-block; background: var(--soft); border: 1px solid rgba(201,168,76,0.3); padding: 0.45rem 1.1rem; font-family: Arial, sans-serif; font-size: 0.8rem; transition: all 0.25s; cursor: default; }
+  .spill:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+  /* EDUCATION */
+  #education { background: var(--soft); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .edu-card { border-left: 2px solid var(--gold); padding: 1.5rem 1.5rem 1.5rem 2rem; position: relative; transition: all 0.25s; }
+  .edu-card::before { content: ''; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; position: absolute; left: -6px; top: 1.8rem; }
+  .edu-card:hover { background: rgba(255,255,255,0.5); padding-left: 2.5rem; }
+  .edu-year { font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
+  .edu-deg { font-size: 1.2rem; font-weight: bold; margin-bottom: 0.3rem; }
+  .edu-school { font-family: Arial, sans-serif; font-size: 0.82rem; color: var(--muted); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--cream); }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .exp-card { background: var(--soft); padding: 2rem; transition: all 0.25s; border-top: 3px solid transparent; }
+  .exp-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-top-color: var(--gold); }
+  .exp-period { font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .exp-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 0.3rem; }
+  .exp-co { font-family: Arial, sans-serif; font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+  .exp-desc { font-family: Arial, sans-serif; font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+  /* CERTIFICATIONS */
+  #certifications { background: var(--ink); color: var(--cream); }
+  #certifications .slabel { color: var(--gold); }
+  #certifications .stitle { color: var(--cream); }
+  .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .cert-card { border: 1px solid rgba(201,168,76,0.2); padding: 2rem; transition: all 0.25s; }
+  .cert-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .cert-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .cert-name { font-size: 1.15rem; font-weight: bold; color: var(--cream); margin-bottom: 0.5rem; }
+  .cert-desc { font-family: Arial, sans-serif; font-size: 0.82rem; color: rgba(245,240,232,0.5); line-height: 1.6; }
+
+  /* LANGUAGES */
+  #languages { background: var(--soft); }
+  .lang-grid { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+  .lang-card { text-align: center; }
+  .lang-ring { width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 0.75rem; font-size: 1.3rem; font-weight: bold; color: var(--gold); background: var(--cream); transition: all 0.25s; }
+  .lang-card:hover .lang-ring { background: var(--gold); color: var(--ink); }
+  .lang-name { font-family: Arial, sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .lang-level { font-family: Arial, sans-serif; font-size: 0.65rem; color: var(--gold); margin-top: 0.2rem; }
+
+  /* CONTACT */
+  #contact { background: var(--soft); }
+  .contact-box { background: var(--ink); padding: 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .c-label { font-family: Arial, sans-serif; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+  .c-title { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: normal; color: var(--cream); margin-bottom: 1.2rem; line-height: 1.2; }
+  .c-body { font-family: Arial, sans-serif; font-size: 0.88rem; color: rgba(245,240,232,0.5); line-height: 1.8; }
+  .c-email { display: block; font-size: clamp(1rem, 2.5vw, 1.6rem); font-style: italic; color: var(--cream); border-bottom: 1px solid rgba(201,168,76,0.4); padding-bottom: 0.5rem; margin-bottom: 1.5rem; transition: color 0.25s, border-color 0.25s; }
+  .c-email:hover { color: var(--gold); border-color: var(--gold); }
+  .c-links { display: flex; flex-direction: column; gap: 0.85rem; }
+  .clink { display: flex; align-items: center; gap: 0.6rem; font-family: Arial, sans-serif; font-size: 0.85rem; color: rgba(245,240,232,0.6); transition: color 0.25s; }
+  .clink:hover { color: var(--gold); }
+  .ci { color: var(--gold); width: 18px; text-align: center; font-style: normal; font-weight: bold; }
+
+  /* FOOTER */
+  footer { background: var(--ink); border-top: 1px solid rgba(255,255,255,0.05); text-align: center; padding: 1.5rem; font-family: Arial, sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; color: rgba(245,240,232,0.25); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 4rem; }
+    .about-grid, .skills-grid, .edu-grid, .exp-grid, .cert-grid, .contact-box { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-box { padding: 2rem 1.5rem; }
+    .stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#hero">Jovita <span>Philix</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg">AI</div>
+  <div class="hero-inner">
+    <h1 class="hero-name">Jovita<br><em>Philix</em></h1>
+    <p class="hero-sub">AI Student &amp; Emerging Technology Enthusiast</p>
+    <p class="hero-desc">A driven Computer Applications student specialising in Artificial Intelligence, passionate about emerging technology and building a future shaped by intelligent systems.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-n">2+</div><div class="stat-l">Years of Study</div></div>
+      <div class="stat"><div class="stat-n">2</div><div class="stat-l">Work Experiences</div></div>
+      <div class="stat"><div class="stat-n">3+</div><div class="stat-l">Skills Mastered</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <div class="slabel">About Me</div>
+      <h2 class="stitle">Curious mind,<br>purposeful direction</h2>
+    </div>
+    <div>
+      <p class="about-quote">"I consider myself a responsible and orderly person — ready to support, learn, and grow."</p>
+      <p class="about-text">I'm Jovita, a Bachelor of Computer Applications student specialising in Artificial Intelligence at Jain University, Bangalore. With a background spanning Kuwait and India, I bring a multicultural perspective to technology and innovation.</p>
+      <p class="about-text">I'm actively seeking my first full-time professional role where I can apply my growing expertise in AI and Machine Learning, contribute meaningfully to team projects, and continue learning in a real-world environment.</p>
+      <div class="cpills">
+        <a href="/cdn-cgi/l/email-protection#056f6a736c7164676a67456268646c692b666a68" class="cpill">✉ <span class="__cf_email__" data-cfemail="452f2a332c3124272a27052228242c296b262a28">[email&#160;protected]</span></a>
+        <a href="tel:8088266122" class="cpill">📞 8088266122</a>
+        <span class="cpill">📍 JP Nagar, Bangalore</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="skills-grid">
+    <div>
+      <div class="slabel">What I Know</div>
+      <h2 class="stitle">Skills &amp;<br>Expertise</h2>
+      <p class="skills-intro">A blend of technical proficiency and professional soft skills developed through academic study and hands-on experience.</p>
+    </div>
+    <div>
+      <div class="glabel" style="margin-top:0">Technical Skills</div>
+      <div class="sk-row"><span>Python</span><span>Intermediate</span></div>
+      <div class="sk-track"><div class="sk-fill" data-w="65"></div></div>
+      <div class="sk-row"><span>Machine Learning</span><span>Foundational</span></div>
+      <div class="sk-track"><div class="sk-fill" data-w="55"></div></div>
+      <div class="sk-row"><span>Artificial Intelligence</span><span>In Progress</span></div>
+      <div class="sk-track"><div class="sk-fill" data-w="60"></div></div>
+      <div class="sk-row"><span>MS Office</span><span>Proficient</span></div>
+      <div class="sk-track"><div class="sk-fill" data-w="80"></div></div>
+      <div class="sk-row"><span>Document Management</span><span>Experienced</span></div>
+      <div class="sk-track"><div class="sk-fill" data-w="75"></div></div>
+      <div class="glabel">Professional Skills</div>
+      <div class="spills">
+        <span class="spill">Team Collaboration</span>
+        <span class="spill">Organisation</span>
+        <span class="spill">Attention to Detail</span>
+        <span class="spill">Communication</span>
+        <span class="spill">Reliability</span>
+        <span class="spill">Problem Solving</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="slabel">Education</div>
+  <h2 class="stitle">Academic Journey</h2>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-year">2022 — 2024 (In Progress)</div>
+      <div class="edu-deg">BCA in Artificial Intelligence</div>
+      <div class="edu-school">🎓 Jain University, Bangalore, India</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2020 — 2022</div>
+      <div class="edu-deg">High School Diploma</div>
+      <div class="edu-school">🏫 Indian Public School, Salmiya, Kuwait</div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="slabel">Work Experience</div>
+  <h2 class="stitle">Professional Background</h2>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <div class="exp-period">27 Aug 2021 — 19 Oct 2021</div>
+      <div class="exp-title">Document Controller</div>
+      <div class="exp-co">🏢 Horizon Star Company</div>
+      <p class="exp-desc">Participated in document controlling operations, gaining hands-on experience in document management systems, organisation, and professional administrative workflows.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-period">15 Jun 2021 — 20 Aug 2021</div>
+      <div class="exp-title">Office Assistant</div>
+      <div class="exp-co">🏢 Boushahri Group Medical Co.</div>
+      <p class="exp-desc">Supported day-to-day office operations in a medical company environment, developing strong organisational skills and an understanding of professional workplace dynamics.</p>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="slabel">Credentials</div>
+  <h2 class="stitle">Certifications &amp; Achievements</h2>
+  <div class="cert-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🧠</div>
+      <div class="cert-name">AI and Machine Learning</div>
+      <div class="cert-desc">Certified course covering foundational and applied concepts in Artificial Intelligence and Machine Learning methodologies.</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🤖</div>
+      <div class="cert-name">Applied AI Concepts</div>
+      <div class="cert-desc">Hands-on certification in applied AI techniques, model development, and intelligent system design principles.</div>
+    </div>
+  </div>
+</section>
+
+<section id="languages">
+  <div class="slabel">Communication</div>
+  <h2 class="stitle" style="text-align:center">Languages</h2>
+  <div class="lang-grid">
+    <div class="lang-card">
+      <div class="lang-ring">En</div>
+      <div class="lang-name">English</div>
+      <div class="lang-level">Proficient</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-ring">தமி</div>
+      <div class="lang-name">Tamil</div>
+      <div class="lang-level">Native</div>
+    </div>
+    <div class="lang-card">
+      <div class="lang-ring">हि</div>
+      <div class="lang-name">Hindi</div>
+      <div class="lang-level">Conversational</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-box">
+    <div>
+      <div class="c-label">Let's Connect</div>
+      <h2 class="c-title">Ready to start<br>something together?</h2>
+      <p class="c-body">I'm actively looking for opportunities to begin my professional journey. Whether it's an internship, entry-level role, or collaboration — I'd love to hear from you.</p>
+    </div>
+    <div>
+      <p style="font-family:Arial,sans-serif;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Drop a line</p>
+      <a href="/cdn-cgi/l/email-protection#0c66637a65786d6e636e4c6b616d6560226f6361" class="c-email"><span class="__cf_email__" data-cfemail="573d38213e233635383517303a363e3b7934383a">[email&#160;protected]</span></a>
+      <div class="c-links">
+        <a href="tel:8088266122" class="clink"><i class="ci">📞</i> 8088266122</a>
+        <span class="clink"><i class="ci">📍</i> JP Nagar, Bangalore</span>
+        <a href="https://www.linkedin.com/in/jovita-bob-40b58b286" target="_blank" rel="noopener noreferrer" class="clink"><i class="ci" style="font-family:Georgia;font-size:0.9rem">in</i> linkedin.com/in/jovita-bob-40b58b286</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2025 Jovita Philix &nbsp;·&nbsp; Bangalore, India</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></
